@@ -13,7 +13,7 @@ public class Album {
         this.name = name;
         this.artist = new Artist(artistName);
         this.releaseDate = releaseDate;
-        songs = new ArrayList<Song>();
+        songs = new ArrayList<>();
     }
 
     public void addSongToAlbum(String name, double duration) {
@@ -27,43 +27,38 @@ public class Album {
 //        System.out.println(songs.size());
     }
 
-    public void addSongToAlbum(String name, double duration, ArrayList<String> features) {
+    public void addSongToAlbum(String name, double duration, String[] features) {
         if (songs.isEmpty()) songs.add(new Song(name, duration));
         else if (findSong(name) < 0) System.out.println("Song already exists");
         else {
             Song song = new Song(name, duration);
-            if (!features.isEmpty()) {
-                for (String s: features
-                     ) {
+            if (features.length != 0) {
+                for (String s : features
+                ) {
                     song.addFeature(s);
                 }
             }
             songs.add(song);
         }
     }
+
     private int findSong(String name) {
         int idx = 0;
-        for (int i =0; i < songs.size(); i++) {
+        for (int i = 0; i < songs.size(); i++) {
             if (songs.get(i).getTitle().equals(name)) return -1;
 //            else idx = i;
         }
         return idx;
     }
 
-    private int containsSong(String name){
-        int idx = 0;
-        for (int i = 0; i < songs.size(); i++){
+    private int containsSong(String name) {
+        for (int i = 0; i < songs.size(); i++) {
             if (songs.get(i).getTitle().equals(name)) {
-                idx = i;
-                System.out.println("idx" +" " + i);
-            }
-            else {
-                idx = -1;
-                System.out.println("idx" +" " + i);
+//                System.out.println(i + " " + songs.get(i).getTitle());
+                return i;
             }
         }
-        System.out.println("idx" +" " + idx);
-        return idx;
+        return -1;
     }
 
     public boolean addSongToPlaylist(int trackNumber, LinkedList<Song> playlist) {
@@ -82,7 +77,7 @@ public class Album {
             if (currentSong.getTitle().equals(songTitle)) {
                 playlist.add(currentSong);
                 return true;
-            }else{
+            } else {
                 System.out.println("Song does not exist");
             }
         }
@@ -94,10 +89,36 @@ public class Album {
         return songs;
     }
 
-    public Song getSong(String name){
-        if (containsSong(name) < 0) {
-         System.out.println("No such song");
+    public Song getSong(String name) {
+        int idx = containsSong(name);
+//        System.out.println(containsSong(name));
+        if (idx < 0) {
+            System.out.println("No such song");
+            return null;
         }
-        return songs.get(containsSong(name));
+        return songs.get(idx);
+//        return null;
+//        if (containsSong(name) >= 0) System.out.println("Found");
+//        containsSong(name);
+//        System.out.println("index of song " + containsSong("name"));
+    }
+//        if (containsSong(name) < 0) {
+//         System.out.println("No such song");
+//        }
+//        return songs.get(containsSong(name));
+//    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
 }
+

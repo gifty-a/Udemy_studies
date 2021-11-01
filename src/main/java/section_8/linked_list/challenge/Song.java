@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Song {
     private String title;
-//    private String genre;
+    //    private String genre;
     private double duration;
     private ArrayList<Artist> features;
 
-    public Song(String songTitle, double songDuration){
+    public Song(String songTitle, double songDuration) {
         this.title = songTitle;
         this.duration = songDuration;
-        this.features = new ArrayList<Artist>();
+        this.features = new ArrayList<>();
 //        this.genre = genre;
     }
 
@@ -28,9 +28,10 @@ public class Song {
 
     private int findFeature(String name) {
         int idx = 0;
-        for (int i = 0; i < features.size(); i++){
+        for (int i = 0; i < features.size(); i++) {
             if (features.get(i).getName().equals("name")) {
                 idx = -1;
+                return idx;
             }
 //            else idx = i;
         }
@@ -57,18 +58,21 @@ public class Song {
     public String toString() {
         String featuresString = featuresList();
         return features.size() == 0 ?
-          this.title + ": " + this.duration :
-          this.title + ": " + this.duration + "\n "
-                  + "ft " + featuresString;
+                this.title + ": " + this.duration :
+                this.title + ": " + this.duration + "\n "
+                        + "ft " + featuresString;
 
     }
 
-    private String featuresList(){
-        StringBuilder sb = new StringBuilder();
-        for (Artist a: features
-             ) {
-            sb.append(a.getName() + ",");
+    private String featuresList() {
+        if (!features.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (Artist a : features
+            ) {
+                sb.append(a.getName() + ",");
+            }
+            return sb.substring(0, sb.length() - 1);
         }
-        return sb.toString().substring(0,sb.length()-1);
+        return null;
     }
 }
