@@ -17,14 +17,10 @@ public class Album {
     }
 
     public void addSongToAlbum(String name, double duration) {
-//        System.out.println(songs.size());
-//        System.out.println(name + " " + Double.toString(duration));
         if (songs.isEmpty()) songs.add(new Song(name, duration));
         else if (findSong(name) < 0) System.out.println("Song already exists");
         else songs.add(new Song(name, duration));
         System.out.println(songs.size());
-//        else songs.add(new Song(name,duration));
-//        System.out.println(songs.size());
     }
 
     public void addSongToAlbum(String name, double duration, String[] features) {
@@ -42,19 +38,11 @@ public class Album {
         }
     }
 
-    private int findSong(String name) {
-        int idx = 0;
-        for (int i = 0; i < songs.size(); i++) {
-            if (songs.get(i).getTitle().equals(name)) return -1;
-//            else idx = i;
-        }
-        return idx;
-    }
+
 
     private int containsSong(String name) {
         for (int i = 0; i < songs.size(); i++) {
             if (songs.get(i).getTitle().equals(name)) {
-//                System.out.println(i + " " + songs.get(i).getTitle());
                 return i;
             }
         }
@@ -72,35 +60,33 @@ public class Album {
     }
 
     public boolean addSongToPlaylist(String songTitle, LinkedList<Song> playlist) {
-        for (int i = 0; i < songs.size(); i++) {
-            Song currentSong = songs.get(i);
-            if (currentSong.getTitle().equals(songTitle)) {
-                playlist.add(currentSong);
-                return true;
-            } else {
-                System.out.println("Song does not exist");
-            }
+        int idx = containsSong(songTitle);
+        if (idx >= 0) {
+            playlist.add(songs.get(idx));
+            return true;
         }
+        System.out.println("Song does not exist");
         return false;
     }
 
     public ArrayList<Song> getSongs() {
-//        System.out.println("Songs returned");
         return songs;
     }
 
     public Song getSong(String name) {
         int idx = containsSong(name);
-//        System.out.println(containsSong(name));
         if (idx < 0) {
             System.out.println("No such song");
             return null;
         }
         return songs.get(idx);
-//        return null;
-//        if (containsSong(name) >= 0) System.out.println("Found");
-//        containsSong(name);
-//        System.out.println("index of song " + containsSong("name"));
+    }
+    private int findSong(String name) {
+        int idx = 0;
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i).getTitle().equals(name)) return -1;
+        }
+        return idx;
     }
 //        if (containsSong(name) < 0) {
 //         System.out.println("No such song");
