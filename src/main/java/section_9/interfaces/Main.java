@@ -1,4 +1,4 @@
-package main.java.section_9;
+package main.java.section_9.interfaces;
 
 import main.java.section_9.interfaces.DeskPhone;
 import main.java.section_9.interfaces.ITelephone;
